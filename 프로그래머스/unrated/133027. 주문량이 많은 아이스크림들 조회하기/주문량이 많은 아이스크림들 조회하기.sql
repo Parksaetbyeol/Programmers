@@ -11,4 +11,4 @@ LIMIT 3
 #                               GROUP BY FLAVOR) B
 #     ON A.FLAVOR = B.FLAVOR
 # ORDER BY (A.TOTAL_ORDER + B.TOTAL_ORDER) DESC
-# LIMIT 3;
+# LIMIT 3
