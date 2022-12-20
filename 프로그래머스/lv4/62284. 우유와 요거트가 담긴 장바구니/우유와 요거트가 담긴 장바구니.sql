@@ -1,11 +1,11 @@
 -- 코드를 입력하세요
-SELECT cart_id
+SELECT DISTINCT(cart_id)
 FROM cart_products
 WHERE name = 'Milk' 
     AND cart_id IN (SELECT cart_id FROM cart_products WHERE name = 'Yogurt')
 ORDER BY cart_id
 
-# SELECT A.cart_id 
+# SELECT DISTINCT(A.cart_id)
 # FROM
 #     (SELECT cart_id, name FROM cart_products
 #     WHERE name = 'Yogurt') A
