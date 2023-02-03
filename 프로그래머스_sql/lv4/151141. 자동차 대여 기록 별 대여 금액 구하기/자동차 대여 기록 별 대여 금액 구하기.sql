@@ -1,4 +1,5 @@
 -- 코드를 입력하세요
+# 1
 WITH CAR_TABLE AS
     (
     SELECT C.car_id CAR_ID, car_type, daily_fee, history_id
@@ -17,3 +18,19 @@ SELECT history_id
 FROM CAR_TABLE C LEFT JOIN CAR_RENTAL_COMPANY_DISCOUNT_PLAN P
     ON C.car_type = p.car_type AND C.DATE = P.DURATION_TYPE
 ORDER BY FEE DESC, history_id DESC
+
+# 2- 다른 방법
+SELECT HISTORY_ID
+        , ROUND(CASE WHEN rental_date < 7 THEN rental_date * daily_fee
+                     WHEN rental_date < 30 THEN rental_date * daily_fee * 0.95
+                     WHEN rental_date < 90 THEN rental_date * daily_fee * 0.92
+                     ELSE rental_date * daily_fee * 0.85 END,0) AS FEE
+FROM (
+        SELECT history_id, car_id, (DATEDIFF(end_date, start_date)+1) rental_date
+        FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY
+        WHERE car_id in (SELECT car_id 
+                            FROM CAR_RENTAL_COMPANY_CAR 
+                            WHERE car_type = '트럭')
+     ) HIS
+LEFT JOIN CAR_RENTAL_COMPANY_CAR USING (CAR_ID)
+ORDER BY 2 DESC, 1 DESC
