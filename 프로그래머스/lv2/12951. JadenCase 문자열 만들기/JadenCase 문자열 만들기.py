@@ -5,3 +5,8 @@ def solution(s):
         ss[i] = ss[i].capitalize()
 
     return ' '.join(ss)
+
+
+# 2
+def solution(s):
+    return " ".join([word.capitalize() for word in s.split(" ")])
